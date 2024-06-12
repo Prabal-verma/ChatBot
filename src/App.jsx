@@ -86,8 +86,8 @@ function App() {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-900 text-white">
-      <div className="w-64 bg-gray-800 flex flex-col p-4">
+    <div className="flex flex-col min-h-screen bg-gray-900 text-white md:flex-row">
+      <div className="w-full md:w-64 bg-gray-800 flex flex-col p-4">
         <h1 className="text-2xl font-bold mb-4">Chat Bot</h1>
         <button
           onClick={() => window.open('https://github.com/Prabal-verma/ChatBot', '_blank')}
@@ -124,7 +124,7 @@ function App() {
           ))}
         </div>
       </div>
-      <div className="flex-1 p-8">
+      <div className="flex-1 p-4 md:p-8">
         <form onSubmit={generateAnswer} className="space-y-4">
           <textarea
             required
@@ -133,7 +133,7 @@ function App() {
             onChange={(e) => setQuestion(e.target.value)}
             placeholder="Ask anything..."
           ></textarea>
-          <div className="flex space-x-2">
+          <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2">
             <button
               type="submit"
               className="flex-1 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition duration-300 disabled:opacity-50"
