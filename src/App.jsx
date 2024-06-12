@@ -88,11 +88,9 @@ function App() {
   return (
     <div className="bg-gradient-to-r from-blue-500 to-purple-600 min-h-screen flex items-center justify-center p-4">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full space-y-6">
-        <a href="https://github.com/Vishesh-Pandey/chat-ai" target="_blank" className="block text-center">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">
             Chat Bot
           </h1>
-        </a>
         <form onSubmit={generateAnswer} className="space-y-4">
           <textarea
             required
