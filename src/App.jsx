@@ -90,7 +90,7 @@ function App() {
       <div className="w-64 bg-gray-800 flex flex-col p-4">
         <h1 className="text-2xl font-bold mb-4">Chat Bot</h1>
         <button
-          onClick={() => window.open('https://github.com/your-repo-url', '_blank')}
+          onClick={() => window.open('https://github.com/Prabal-verma/ChatBot', '_blank')}
           className="mb-4 bg-blue-500 py-2 px-4 rounded-lg hover:bg-blue-600"
         >
           GitHub Repo
