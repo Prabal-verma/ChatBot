@@ -166,9 +166,18 @@ function App() {
             </div>
           ))}
         </div>
+        <a
+          href="https://github.com/Prabal-verma/ChatBot"
+          className="bg-gray-900 text-white py-3 px-6 rounded-lg font-semibold text-center block hover:bg-gray-800 transition duration-300"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub Repo
+        </a>
       </div>
     </div>
   );
 }
 
 export default App;
+
