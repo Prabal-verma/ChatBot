@@ -11,6 +11,7 @@ import DashboardLayout from './layouts/dashboard-layout'
 
 import SignInPage from './routes/sign-in'
 import App from './App'
+import SignUpPage from './routes/sign-up'
 
 
 const router = createBrowserRouter([
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <App/> },
       { path: "/sign-in/*", element: <SignInPage /> },
+      { path: "/sign-up/*", element: <SignUpPage /> },
 
     ]
   }
