@@ -3,6 +3,7 @@ import "./App.css";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 
 function App() {
   const [question, setQuestion] = useState("");
@@ -95,11 +96,11 @@ function App() {
         </SignedIn>
       </div>
       <SignedOut>
-        <SignInButton>
+        <Link to="/sign-in">
           <button className="mb-4 bg-blue-500 py-2 px-4 rounded-lg hover:bg-blue-600">
             Sign In
           </button>
-        </SignInButton>
+        </Link>  
         <p>Please log in to see your history.</p>
       </SignedOut>
       <SignedIn>
