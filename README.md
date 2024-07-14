@@ -5,7 +5,7 @@ ChatGenius is an intelligent chat application powered by Gemini AOI (Artificial 
 ## Technologies Used
 
 - **Frontend**: React.js
-- **External API**: Gemini AOI for generating content
+- **External API**: Gemini API for generating content
 - **Styling**: Tailwind CSS
 
 ## Features
