@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 
 function App() {
   const [question, setQuestion] = useState("");
@@ -85,9 +86,23 @@ function App() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-900 text-white md:flex-row">
-      <div className="w-full md:w-64 bg-gray-800 flex flex-col p-4">
-        <h1 className="text-2xl font-bold mb-4">Chat Bot</h1>
+  <div className="flex flex-col min-h-screen bg-gray-900 text-white md:flex-row">
+    <div className="w-full md:w-64 bg-gray-800 flex flex-col p-4">
+      <div className="flex items-center justify-between mb-4">
+        <h1 className="text-2xl font-bold">Chat Bot</h1>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+      </div>
+      <SignedOut>
+        <SignInButton>
+          <button className="mb-4 bg-blue-500 py-2 px-4 rounded-lg hover:bg-blue-600">
+            Sign In
+          </button>
+        </SignInButton>
+        <p>Please log in to see your history.</p>
+      </SignedOut>
+      <SignedIn>
         <button
           onClick={() => window.open('https://github.com/Prabal-verma/ChatBot', '_blank')}
           className="mb-4 bg-blue-500 py-2 px-4 rounded-lg hover:bg-blue-600"
@@ -116,65 +131,67 @@ function App() {
             </div>
           ))}
         </div>
-      </div>
-      <div className="flex-1 p-4 md:p-8">
-        <form onSubmit={generateAnswer} className="space-y-4">
-          <textarea
-            required
-            className="w-full h-32 p-4 border rounded-lg shadow-sm bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Ask anything..."
-          ></textarea>
-          <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2">
-            <button
-              type="submit"
-              className="flex-1 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition duration-300 disabled:opacity-50"
-              disabled={generatingAnswer}
-            >
-              {generatingAnswer ? (
-                <svg
-                  className="animate-spin h-5 w-5 text-white mx-auto"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25" cx="12" cy="12"r="10" stroke="currentColor" strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8v8H4z"
-                  ></path>
-                </svg>
-              ) :  (
-                "Generate Answer"
-              )}
-            </button>
-            <button
-              type="button"
-              className="flex-1 py-3 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 transition duration-300"
-              onClick={clearAll}
-            >
-              Clear
-            </button>
-          </div>
-        </form>
-        <div className="mt-4 p-6 bg-gray-800 rounded-lg shadow-inner relative">
-          <ReactMarkdown className="prose max-w-full">{answer}</ReactMarkdown>
-          {answer && (
-            <button
-              onClick={() => copyToClipboard(answer)}
-              className="absolute top-2 right-2 bg-gray-600 text-gray-300 p-2 rounded-lg hover:bg-gray-500 transition duration-300"
-            >
-              Copy
-            </button> 
-          )}
+      </SignedIn>
+    </div>
+    <div className="flex-1 p-4 md:p-8">
+      <form onSubmit={generateAnswer} className="space-y-4">
+        <textarea
+          required
+          className="w-full h-32 p-4 border rounded-lg shadow-sm bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="Ask anything..."
+        ></textarea>
+        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2">
+          <button
+            type="submit"
+            className="flex-1 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition duration-300 disabled:opacity-50"
+            disabled={generatingAnswer}
+          >
+            {generatingAnswer ? (
+              <svg
+                className="animate-spin h-5 w-5 text-white mx-auto"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25" cx="12" cy="12"r="10" stroke="currentColor" strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v8H4z"
+                ></path>
+              </svg>
+            ) :  (
+              "Generate Answer"
+            )}
+          </button>
+          <button
+            type="button"
+            className="flex-1 py-3 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 transition duration-300"
+            onClick={clearAll}
+          >
+            Clear
+          </button>
         </div>
+      </form>
+      <div className="mt-4 p-6 bg-gray-800 rounded-lg shadow-inner relative">
+        <ReactMarkdown className="prose max-w-full">{answer}</ReactMarkdown>
+        {answer && (
+          <button
+            onClick={() => copyToClipboard(answer)}
+            className="absolute top-2 right-2 bg-gray-600 text-gray-300 p-2 rounded-lg hover:bg-gray-500 transition duration-300"
+          >
+            Copy
+          </button> 
+        )}
       </div>
     </div>
+  </div>
+
   );
 }
 
