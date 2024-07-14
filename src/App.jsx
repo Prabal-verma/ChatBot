@@ -16,6 +16,12 @@ function App() {
       setHistory(savedHistory);
     }
   }, []);
+  function handleKeyDown(event) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault(); // Prevents newline insertion
+      generateAnswer(event);
+    }
+  }
 
   async function generateAnswer(e) {
     setGeneratingAnswer(true);
@@ -71,13 +77,6 @@ function App() {
     localStorage.setItem("history", JSON.stringify(newHistory));
   }
 
-  function editHistoryItem(index) {
-    const item = history[index];
-    setQuestion(item.question);
-    setAnswer(item.answer);
-    setEditIndex(index);
-  }
-
   function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(
       () => alert("Copied to clipboard!"),
@@ -108,12 +107,6 @@ function App() {
               <p className="text-sm">A: {item.answer}</p>
               <div className="flex justify-end space-x-2">
                 <button
-                  onClick={() => editHistoryItem(index)}
-                  className="bg-blue-500 text-white px-2 py-1 rounded-lg hover:bg-blue-600"
-                >
-                  Edit
-                </button>
-                <button
                   onClick={() => deleteHistoryItem(index)}
                   className="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600"
                 >
@@ -131,6 +124,7 @@ function App() {
             className="w-full h-32 p-4 border rounded-lg shadow-sm bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
+            onKeyDown={handleKeyDown}
             placeholder="Ask anything..."
           ></textarea>
           <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2">
@@ -147,12 +141,7 @@ function App() {
                   viewBox="0 0 24 24"
                 >
                   <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
+                    className="opacity-25" cx="12" cy="12"r="10" stroke="currentColor" strokeWidth="4"
                   ></circle>
                   <path
                     className="opacity-75"
@@ -160,9 +149,7 @@ function App() {
                     d="M4 12a8 8 0 018-8v8H4z"
                   ></path>
                 </svg>
-              ) : editIndex !== null ? (
-                "Update Answer"
-              ) : (
+              ) :  (
                 "Generate Answer"
               )}
             </button>
@@ -183,7 +170,7 @@ function App() {
               className="absolute top-2 right-2 bg-gray-600 text-gray-300 p-2 rounded-lg hover:bg-gray-500 transition duration-300"
             >
               Copy
-            </button>
+            </button> 
           )}
         </div>
       </div>
